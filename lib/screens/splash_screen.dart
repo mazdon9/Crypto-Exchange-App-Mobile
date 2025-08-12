@@ -44,10 +44,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Header with logo and skip
+            // Header with logo centered
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
                     AppImagesPath.coinmoneyLogo,
@@ -65,14 +66,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   const Text(
                     'coinmoney',
                     style: AppTextStyle.logoText,
-                  ),
-                  const Spacer(),
-                  TextButton(
-                    onPressed: _finishOnboarding,
-                    child: const Text(
-                      'Skip',
-                      style: AppTextStyle.textFont16W400,
-                    ),
                   ),
                 ],
               ),
