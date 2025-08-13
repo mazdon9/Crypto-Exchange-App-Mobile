@@ -21,19 +21,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       imagePath: AppImagesPath.manWithCircleImages,
       title: 'Take hold of your finances',
       subtitle:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eget mauris massa pharetra.',
+          'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.',
     ),
     OnboardingData(
       imagePath: AppImagesPath.phoneWithTradingImages,
       title: 'Smart trading tools',
       subtitle:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eget mauris massa pharetra.',
+          'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.',
     ),
     OnboardingData(
       imagePath: AppImagesPath.laptopTechImages,
       title: 'Invest in the future',
       subtitle:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eget mauris massa pharetra.',
+          'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.',
     ),
   ];
 
@@ -43,6 +43,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       backgroundColor: AppColorPath.lightWhite,
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Header with logo centered
             Padding(
@@ -51,22 +52,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    AppImagesPath.coinmoneyLogo,
+                    AppImagesPath.coinmoneyIconLogo,
                     width: 40,
                     height: 40,
-                    errorBuilder: (context, error, stackTrace) {
-                      return const Icon(
-                        Icons.currency_bitcoin,
-                        color: AppColorPath.primary,
-                        size: 40,
-                      );
-                    },
                   ),
                   const SizedBox(width: 8),
                   const Text(
-                    'coinmoney',
+                    'CoinMoney',
                     style: AppTextStyle.logoText,
-                  ),
+                  )
                 ],
               ),
             ),
@@ -93,7 +87,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: Column(
                 children: [
                   _buildPageIndicator(),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 24),
                   AppButton(
                     content: _currentPage == _pages.length - 1
                         ? 'Get Started'
@@ -116,8 +110,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: 300,
-            width: 300,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
             ),
@@ -129,47 +121,29 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 errorBuilder: (context, error, stackTrace) {
                   return Container(
                     decoration: BoxDecoration(
-                      color: AppColorPath.primary.withOpacity(0.1),
+                      color: AppColorPath.blue.withAlpha(10),
                       borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Icon(
-                      _getIconForPage(_currentPage),
-                      size: 100,
-                      color: AppColorPath.primary,
                     ),
                   );
                 },
               ),
             ),
           ),
-          const SizedBox(height: 60),
+          const SizedBox(height: 24),
           Text(
             data.title,
-            style: AppTextStyle.textFont28W600,
+            style: AppTextStyle.textFont32W600,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),
           Text(
             data.subtitle,
-            style: AppTextStyle.textFont16W400,
+            style: AppTextStyle.textFont14W400,
             textAlign: TextAlign.center,
           ),
         ],
       ),
     );
-  }
-
-  IconData _getIconForPage(int index) {
-    switch (index) {
-      case 0:
-        return Icons.account_balance_wallet;
-      case 1:
-        return Icons.trending_up;
-      case 2:
-        return Icons.rocket_launch;
-      default:
-        return Icons.currency_bitcoin;
-    }
   }
 
   Widget _buildPageIndicator() {
@@ -180,11 +154,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         (index) => Container(
           margin: const EdgeInsets.symmetric(horizontal: 4),
           width: index == _currentPage ? 16 : 8,
-          height: 8,
+          height: 3,
           decoration: BoxDecoration(
             color: index == _currentPage
-                ? AppColorPath.primary
-                : AppColorPath.textSecondary,
+                ? AppColorPath.blue
+                : AppColorPath.black.withAlpha(30),
             borderRadius: BorderRadius.circular(4),
           ),
         ),

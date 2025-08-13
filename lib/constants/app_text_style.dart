@@ -16,18 +16,30 @@ class AppTextStyle {
     color: AppColorPath.textSecondary,
     fontFamily: 'ReadexPro',
   );
-
-  static const TextStyle textFont16W600 = TextStyle(
+  static const TextStyle textFont14W400 = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: AppColorPath.black,
+    fontFamily: 'ReadexPro',
+  );
+  static const TextStyle textFont16W500 = TextStyle(
     fontSize: 16,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
     color: AppColorPath.white,
+    fontFamily: 'ReadexPro',
+  );
+
+  static const TextStyle textFont32W600 = TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.w600,
+    color: AppColorPath.black,
     fontFamily: 'ReadexPro',
   );
 
   static const TextStyle logoText = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w700,
-    color: AppColorPath.primary,
+    color: AppColorPath.blue,
     fontFamily: 'ReadexPro',
   );
 }

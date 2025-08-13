@@ -1,7 +1,6 @@
+import 'package:crypto_exchange_app/constants/app_colors.dart';
+import 'package:crypto_exchange_app/constants/app_text_style.dart';
 import 'package:flutter/material.dart';
-
-import '../constants/app_colors.dart';
-import '../constants/app_text_style.dart';
 
 class AppButton extends StatelessWidget {
   final String content;
@@ -26,13 +25,13 @@ class AppButton extends StatelessWidget {
         width: screenWidth - 60,
         height: 48,
         decoration: BoxDecoration(
-          color: backgroundColor ?? AppColorPath.primary,
+          color: backgroundColor ?? AppColorPath.blue,
           borderRadius: BorderRadius.circular(24),
         ),
         child: Center(
           child: Text(
             content,
-            style: AppTextStyle.textFont16W600.copyWith(
+            style: AppTextStyle.textFont16W500.copyWith(
               color: textColor ?? AppColorPath.white,
             ),
           ),
