@@ -1,5 +1,5 @@
-import 'package:crypto_exchange_app/constants/app_colors.dart';
-import 'package:crypto_exchange_app/constants/app_text_style.dart';
+import 'package:crypto_exchange_app/core/constants/app_colors.dart';
+import 'package:crypto_exchange_app/shared/app_text_style.dart';
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {

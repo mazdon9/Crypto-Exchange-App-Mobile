@@ -1,6 +1,5 @@
+import 'package:crypto_exchange_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
-
-import 'app_colors.dart';
 
 class AppTextStyle {
   static const TextStyle textFont28W600 = TextStyle(

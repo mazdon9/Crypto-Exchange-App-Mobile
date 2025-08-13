@@ -1,9 +1,13 @@
+import 'package:crypto_exchange_app/core/constants/app_data.dart';
+import 'package:crypto_exchange_app/core/router/app_router.dart';
+import 'package:crypto_exchange_app/models/onboarding_data.dart';
+import 'package:crypto_exchange_app/services/storage_service.dart';
 import 'package:flutter/material.dart';
 
-import '../components/app_button.dart';
-import '../constants/app_colors.dart';
-import '../constants/app_paths.dart';
-import '../constants/app_text_style.dart';
+import '../../shared/app_button.dart';
+import '../../core/constants/app_colors.dart';
+import '../../core/constants/app_paths.dart';
+import '../../shared/app_text_style.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -15,27 +19,7 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
-
-  final List<OnboardingData> _pages = [
-    OnboardingData(
-      imagePath: AppImagesPath.manWithCircleImages,
-      title: 'Take hold of your finances',
-      subtitle:
-          'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.',
-    ),
-    OnboardingData(
-      imagePath: AppImagesPath.phoneWithTradingImages,
-      title: 'Smart trading tools',
-      subtitle:
-          'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.',
-    ),
-    OnboardingData(
-      imagePath: AppImagesPath.laptopTechImages,
-      title: 'Invest in the future',
-      subtitle:
-          'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.',
-    ),
-  ];
+  final List<OnboardingData> _pages = AppData().onboardingData;
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +87,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  Widget _buildPageContent(OnboardingData data) {
+  Padding _buildPageContent(OnboardingData data) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
@@ -146,7 +130,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  Widget _buildPageIndicator() {
+  Row _buildPageIndicator() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(
@@ -166,33 +150,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  void _nextPage() {
+  Future<void> _nextPage() async {
     if (_currentPage < _pages.length - 1) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
     } else {
-      _finishOnboarding();
+      Navigator.pushNamed(context, AppRoutes.dashboardScreenRouter);
+      await _finishOnboarding();
     }
   }
 
-  void _finishOnboarding() {
+  Future<void> _finishOnboarding() async {
     // Navigate to main app
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Welcome to Crypto Exchange App!')),
     );
+
+    /// save onboarding completed to local
+    await StorageService.instance.setOnboardingCompleted();
   }
-}
-
-class OnboardingData {
-  final String imagePath;
-  final String title;
-  final String subtitle;
-
-  OnboardingData({
-    required this.imagePath,
-    required this.title,
-    required this.subtitle,
-  });
 }
