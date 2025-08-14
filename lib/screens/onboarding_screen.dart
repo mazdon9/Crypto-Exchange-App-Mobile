@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../components/app_button.dart';
-import '../constants/app_colors.dart';
-import '../constants/app_paths.dart';
-import '../constants/app_text_style.dart';
+import '../core/constants/app_colors.dart';
+import '../core/constants/app_paths.dart';
+import '../shared/app_button.dart';
+import '../shared/app_text_style.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -53,14 +53,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 children: [
                   Image.asset(
                     AppImagesPath.coinmoneyIconLogo,
-                    width: 40,
-                    height: 40,
+                    width: 25,
+                    height: 28,
                   ),
                   const SizedBox(width: 8),
-                  const Text(
-                    'CoinMoney',
-                    style: AppTextStyle.logoText,
-                  )
+                  Image.asset(
+                    AppImagesPath.coinmoneyTextLogo,
+                    width: 120,
+                    height: 20,
+                  ),
                 ],
               ),
             ),
@@ -103,7 +104,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  Widget _buildPageContent(OnboardingData data) {
+  Padding _buildPageContent(OnboardingData data) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
@@ -146,7 +147,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  Widget _buildPageIndicator() {
+  Row _buildPageIndicator() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'app_colors.dart';
+import '../core/constants/app_colors.dart';
 
 class AppTextStyle {
   static const TextStyle textFont28W600 = TextStyle(
