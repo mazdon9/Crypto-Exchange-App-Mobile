@@ -79,6 +79,9 @@ flutter:
   assets:
     # Images - Hình ảnh
     - assets/images/
+    - assets/icons/
+
+    
 
   # Fonts configuration - Cấu hình font chữ ReadexPro
   fonts:

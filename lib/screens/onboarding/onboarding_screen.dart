@@ -1,11 +1,12 @@
+import 'package:crypto_exchange_app/core/constants/app_colors.dart';
 import 'package:crypto_exchange_app/core/constants/app_data.dart';
+import 'package:crypto_exchange_app/core/constants/app_paths.dart';
+import 'package:crypto_exchange_app/core/router/app_router.dart';
 import 'package:crypto_exchange_app/models/onboarding_data.dart';
+import 'package:crypto_exchange_app/services/storage_service.dart';
+import 'package:crypto_exchange_app/shared/app_button.dart';
+import 'package:crypto_exchange_app/shared/app_text_style.dart';
 import 'package:flutter/material.dart';
-
-import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_paths.dart';
-import '../../shared/app_button.dart';
-import '../../shared/app_text_style.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -34,13 +35,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    AppImagesPath.coinmoneyIconLogo,
+                    AppPaths.coinmoneyIconLogo,
                     width: 25,
                     height: 28,
                   ),
                   const SizedBox(width: 8),
                   Image.asset(
-                    AppImagesPath.coinmoneyTextLogo,
+                    AppPaths.coinmoneyTextLogo,
                     width: 120,
                     height: 20,
                   ),
@@ -149,21 +150,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  void _nextPage() {
+  Future<void> _nextPage() async {
     if (_currentPage < _pages.length - 1) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
     } else {
-      _finishOnboarding();
+      Navigator.pushNamed(context, AppRoutes.dashboardScreenRouter);
+      await _finishOnboarding();
     }
   }
 
-  void _finishOnboarding() {
+  Future<void> _finishOnboarding() async {
     // Navigate to main app
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Welcome to Crypto Exchange App!')),
     );
+    // save onboarding completed
+    await StorageService.instance.setOnboardingCompleted();
   }
 }

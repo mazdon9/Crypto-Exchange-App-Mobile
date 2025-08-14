@@ -1,13 +1,25 @@
+import 'package:crypto_exchange_app/core/router/app_router.dart';
+import 'package:crypto_exchange_app/services/storage_service.dart';
 import 'package:flutter/material.dart';
 
-import 'screens/onboarding/onboarding_screen.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main() {
-  runApp(const CryptoExchangeApp());
+  // initialize storageService
+  await StorageService.instance.init();
+  // get onboarding completed
+  final isCompletedOnboarding =
+      await StorageService.instance.getOnboardingCompleted();
+  runApp(CryptoExchangeApp(isCompletedOnboarding: isCompletedOnboarding));
 }
 
 class CryptoExchangeApp extends StatelessWidget {
-  const CryptoExchangeApp({super.key});
+  final bool isCompletedOnboarding;
+
+  const CryptoExchangeApp({
+    required this.isCompletedOnboarding,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +30,10 @@ class CryptoExchangeApp extends StatelessWidget {
         fontFamily: 'ReadexPro',
         useMaterial3: true,
       ),
-      home: const OnboardingScreen(),
+      initialRoute: isCompletedOnboarding
+          ? AppRoutes.dashboardScreenRouter
+          : AppRoutes.onboardingScreenRouter,
+      routes: AppRoutes.routes,
     );
   }
 }

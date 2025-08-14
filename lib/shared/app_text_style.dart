@@ -21,6 +21,12 @@ class AppTextStyle {
     color: AppColorPath.black,
     fontFamily: 'ReadexPro',
   );
+  static const TextStyle textFont12W400 = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: AppColorPath.blue,
+    fontFamily: 'ReadexPro',
+  );
   static const TextStyle textFont16W500 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
