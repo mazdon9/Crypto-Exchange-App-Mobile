@@ -1,9 +1,11 @@
+import 'package:crypto_exchange_app/core/constants/app_data.dart';
+import 'package:crypto_exchange_app/models/onboarding_data.dart';
 import 'package:flutter/material.dart';
 
-import '../core/constants/app_colors.dart';
-import '../core/constants/app_paths.dart';
-import '../shared/app_button.dart';
-import '../shared/app_text_style.dart';
+import '../../core/constants/app_colors.dart';
+import '../../core/constants/app_paths.dart';
+import '../../shared/app_button.dart';
+import '../../shared/app_text_style.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -15,27 +17,7 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
-
-  final List<OnboardingData> _pages = [
-    OnboardingData(
-      imagePath: AppImagesPath.manWithCircleImages,
-      title: 'Take hold of your finances',
-      subtitle:
-          'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.',
-    ),
-    OnboardingData(
-      imagePath: AppImagesPath.phoneWithTradingImages,
-      title: 'Smart trading tools',
-      subtitle:
-          'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.',
-    ),
-    OnboardingData(
-      imagePath: AppImagesPath.laptopTechImages,
-      title: 'Invest in the future',
-      subtitle:
-          'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.',
-    ),
-  ];
+  final List<OnboardingData> _pages = AppData().onboardingDataList;
 
   @override
   Widget build(BuildContext context) {
@@ -184,16 +166,4 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       const SnackBar(content: Text('Welcome to Crypto Exchange App!')),
     );
   }
-}
-
-class OnboardingData {
-  final String imagePath;
-  final String title;
-  final String subtitle;
-
-  OnboardingData({
-    required this.imagePath,
-    required this.title,
-    required this.subtitle,
-  });
 }
