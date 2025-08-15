@@ -1,6 +1,7 @@
 import 'package:crypto_exchange_app/core/constants/app_colors.dart';
 import 'package:crypto_exchange_app/core/constants/app_paths.dart';
 import 'package:crypto_exchange_app/screens/home/home_screen.dart';
+import 'package:crypto_exchange_app/screens/settings/setting_screen.dart';
 import 'package:crypto_exchange_app/shared/app_text_style.dart';
 import 'package:flutter/material.dart';
 
@@ -72,10 +73,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.all(12.0),
-            child: Image.asset(
-              AppPaths.settingsIcon,
-              width: 24,
-              height: 24,
+            child: IconButton(
+              icon: Image.asset(
+                AppPaths.settingsIcon,
+                width: 24,
+                height: 24,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingScreen(),
+                  ),
+                );
+              },
             ),
           ),
         ],

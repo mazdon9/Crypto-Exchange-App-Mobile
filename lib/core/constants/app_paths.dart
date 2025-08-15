@@ -12,6 +12,7 @@ class AppPaths {
   static const String portfolioGraphImages =
       'assets/images/portfolio_graph_images.png';
   static const String miniGraphImages = 'assets/images/mini_graph_images.png';
+  static const String avatarImages = 'assets/images/avatar_images.png';
   // Bottom Navigation Icons path
   static const String homeIcon = 'assets/icons/home_icon.png';
   static const String tradeIcon = 'assets/icons/trade_icon.png';
@@ -22,4 +23,17 @@ class AppPaths {
   // AppBar Icons path
   static const String profileIcon = 'assets/icons/profile_icon.png';
   static const String settingsIcon = 'assets/icons/setting_icon.png';
+
+  //setting icon path
+  static const String bellIcon = 'assets/icons/bell_icon.png';
+  static const String copyIcon = 'assets/icons/copy_icon.png';
+  static const String shareIcon = 'assets/icons/share_icon.png';
+  static const String giftIcon = 'assets/icons/gift_icon.png';
+  static const String historyIcon = 'assets/icons/history_icon.png';
+  static const String searchIcon = 'assets/icons/search_icon.png';
+  static const String limitsIcon = 'assets/icons/limits_icon.png';
+  static const String securityIcon = 'assets/icons/security_icon.png';
+  static const String sharePlusIcon = 'assets/icons/share_plus_icon.png';
+  static const String supportIcon = 'assets/icons/support_icon.png';
+  static const String themesIcon = 'assets/icons/themes_icon.png';
 }
