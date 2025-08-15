@@ -1,6 +1,8 @@
 import 'package:crypto_exchange_app/core/router/app_router.dart';
+import 'package:crypto_exchange_app/providers/theme_provider.dart';
 import 'package:crypto_exchange_app/services/storage_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,13 +25,27 @@ class CryptoExchangeApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+      ],
+      child: MyApp(
+        isCompletedOnboarding: isCompletedOnboarding,
+      ),
+    );
+  }
+}
+
+class MyApp extends StatelessWidget {
+  final bool isCompletedOnboarding;
+  const MyApp({super.key, required this.isCompletedOnboarding});
+
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Crypto Exchange App',
-      theme: ThemeData(
-        fontFamily: 'ReadexPro',
-        useMaterial3: true,
-      ),
+      theme: context.watch<ThemeProvider>().theme,
       initialRoute: isCompletedOnboarding
           ? AppRoutes.dashboardScreenRouter
           : AppRoutes.onboardingScreenRouter,

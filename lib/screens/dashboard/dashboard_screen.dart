@@ -1,7 +1,6 @@
 import 'package:crypto_exchange_app/core/constants/app_colors.dart';
 import 'package:crypto_exchange_app/core/constants/app_paths.dart';
 import 'package:crypto_exchange_app/screens/home/home_screen.dart';
-import 'package:crypto_exchange_app/screens/settings/setting_screen.dart';
 import 'package:crypto_exchange_app/shared/app_text_style.dart';
 import 'package:flutter/material.dart';
 
@@ -43,54 +42,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Image.asset(
-            AppPaths.profileIcon,
-            width: 20,
-            height: 20,
-          ),
-        ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              AppPaths.coinmoneyIconLogo,
-              width: 25,
-              height: 28,
-            ),
-            const SizedBox(width: 8),
-            Image.asset(
-              AppPaths.coinmoneyTextLogo,
-              width: 120,
-              height: 20,
-            ),
-          ],
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: IconButton(
-              icon: Image.asset(
-                AppPaths.settingsIcon,
-                width: 24,
-                height: 24,
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SettingScreen(),
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
       body: _getCurrentScreen(),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -102,58 +53,60 @@ class _DashboardScreenState extends State<DashboardScreen> {
           color: Colors.blue,
         ),
         items: [
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              AppPaths.homeIcon,
-              width: 24,
-              height: 24,
-              color:
-                  _selectedIndex == 0 ? AppColorPath.blue : AppColorPath.black,
-            ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              AppPaths.tradeIcon,
-              width: 24,
-              height: 24,
-              color:
-                  _selectedIndex == 1 ? AppColorPath.blue : AppColorPath.black,
-            ),
-            label: 'Trade',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              AppPaths.vectorIcon,
-              width: 24,
-              height: 24,
-              color:
-                  _selectedIndex == 2 ? AppColorPath.blue : AppColorPath.black,
-            ),
-            label: 'Market',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              AppPaths.favoritesIcon,
-              width: 24,
-              height: 24,
-              color:
-                  _selectedIndex == 3 ? AppColorPath.blue : AppColorPath.black,
-            ),
-            label: 'Favorites',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              AppPaths.walletIcon,
-              width: 24,
-              height: 24,
-              color:
-                  _selectedIndex == 4 ? AppColorPath.blue : AppColorPath.black,
-            ),
-            label: 'Wallet',
-          ),
+          _buildBottomNavigationBarItemWidget(index: 0),
+          _buildBottomNavigationBarItemWidget(index: 1),
+          _buildBottomNavigationBarItemWidget(index: 2),
+          _buildBottomNavigationBarItemWidget(index: 3),
+          _buildBottomNavigationBarItemWidget(index: 4)
         ],
       ),
     );
+  }
+
+  BottomNavigationBarItem _buildBottomNavigationBarItemWidget(
+      {required int index}) {
+    return BottomNavigationBarItem(
+      icon: Image.asset(
+        _bottomNavigationBarItemIconPath(index),
+        width: 24,
+        height: 24,
+        color: _selectedIndex == index ? AppColorPath.blue : AppColorPath.black,
+      ),
+      label: _buildBottomNavigationBarItemLabel(index),
+    );
+  }
+
+  String _bottomNavigationBarItemIconPath(int index) {
+    switch (index) {
+      case 0:
+        return AppPaths.homeIcon;
+      case 1:
+        return AppPaths.tradeIcon;
+      case 2:
+        return AppPaths.vectorIcon;
+      case 3:
+        return AppPaths.favoritesIcon;
+      case 4:
+        return AppPaths.walletIcon;
+      default:
+        return AppPaths.homeIcon;
+    }
+  }
+
+  String _buildBottomNavigationBarItemLabel(int index) {
+    switch (index) {
+      case 0:
+        return 'Home';
+      case 1:
+        return 'Trade';
+      case 2:
+        return 'Market';
+      case 3:
+        return 'Favorites';
+      case 4:
+        return 'Wallet';
+      default:
+        return 'Home';
+    }
   }
 }
