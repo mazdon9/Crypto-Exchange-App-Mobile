@@ -41,36 +41,49 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: _getCurrentScreen(),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
+        backgroundColor: isDarkMode ? AppColorPath.darkLight : Colors.white,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
+        selectedItemColor: AppColorPath.blue,
+        unselectedItemColor: isDarkMode ? Colors.grey[400] : Colors.grey,
         selectedLabelStyle: AppTextStyle.textFont12W400.copyWith(
-          color: Colors.blue,
+          color: AppColorPath.blue,
+        ),
+        unselectedLabelStyle: AppTextStyle.textFont12W400.copyWith(
+          color: isDarkMode ? Colors.grey[400] : Colors.grey,
         ),
         items: [
-          _buildBottomNavigationBarItemWidget(index: 0),
-          _buildBottomNavigationBarItemWidget(index: 1),
-          _buildBottomNavigationBarItemWidget(index: 2),
-          _buildBottomNavigationBarItemWidget(index: 3),
-          _buildBottomNavigationBarItemWidget(index: 4)
+          _buildBottomNavigationBarItemWidget(index: 0, isDarkMode: isDarkMode),
+          _buildBottomNavigationBarItemWidget(index: 1, isDarkMode: isDarkMode),
+          _buildBottomNavigationBarItemWidget(index: 2, isDarkMode: isDarkMode),
+          _buildBottomNavigationBarItemWidget(index: 3, isDarkMode: isDarkMode),
+          _buildBottomNavigationBarItemWidget(index: 4, isDarkMode: isDarkMode)
         ],
       ),
     );
   }
 
-  BottomNavigationBarItem _buildBottomNavigationBarItemWidget(
-      {required int index}) {
+  BottomNavigationBarItem _buildBottomNavigationBarItemWidget({
+    required int index,
+    required bool isDarkMode,
+  }) {
     return BottomNavigationBarItem(
       icon: Image.asset(
         _bottomNavigationBarItemIconPath(index),
         width: 24,
         height: 24,
-        color: _selectedIndex == index ? AppColorPath.blue : AppColorPath.black,
+        color: _selectedIndex == index
+            ? AppColorPath.blue
+            : isDarkMode
+                ? Colors.grey[400]
+                : AppColorPath.black,
       ),
       label: _buildBottomNavigationBarItemLabel(index),
     );

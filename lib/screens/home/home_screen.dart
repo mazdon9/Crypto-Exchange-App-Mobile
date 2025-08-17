@@ -12,12 +12,22 @@ class HomeScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Coming Soon'),
-        content: const Text('Opps! This feature will be updated later...'),
+        backgroundColor: context.theme.scaffoldBackgroundColor,
+        title: Text(
+          'Coming Soon',
+          style: TextStyle(color: context.theme.textTheme.bodyLarge?.color),
+        ),
+        content: Text(
+          'Opps! This feature will be updated later...',
+          style: TextStyle(color: context.theme.textTheme.bodyMedium?.color),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
+            child: const Text(
+              'OK',
+              style: TextStyle(color: AppColorPath.blue),
+            ),
           ),
         ],
       ),
@@ -26,7 +36,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = context.theme.brightness == Brightness.dark;
+
     return Scaffold(
+      backgroundColor: context.theme.scaffoldBackgroundColor,
       appBar: const HomeAppbarWidget(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 16, bottom: 16),
@@ -38,7 +51,7 @@ class HomeScreen extends StatelessWidget {
               child: Text(
                 'Portfolio Balance',
                 style: AppTextStyle.textFont16W400.copyWith(
-                  color: AppColorPath.black,
+                  color: context.theme.textTheme.bodyLarge?.color,
                 ),
               ),
             ),
@@ -49,7 +62,7 @@ class HomeScreen extends StatelessWidget {
               child: Text(
                 '\$2,760.23',
                 style: AppTextStyle.textFont32W600.copyWith(
-                  color: AppColorPath.black,
+                  color: context.theme.textTheme.headlineLarge?.color,
                 ),
               ),
             ),
@@ -77,7 +90,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 24),
 
             // 5. Market Movers Row
-            _buildTitleListCoinsWidget(context, title: 'Portfolio'),
+            _buildTitleListCoinsWidget(context, title: 'Market Movers'),
             const SizedBox(height: 16),
 
             // 6. Market Movers Horizontal ListView
@@ -94,10 +107,13 @@ class HomeScreen extends StatelessWidget {
                     width: (156 / 375) * context.screenWidth,
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: AppColorPath.white,
+                      color:
+                          isDarkMode ? const Color(0xFF1E1E2E) : Colors.white,
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
-                        color: AppColorPath.black.withAlpha(20),
+                        color: isDarkMode
+                            ? Colors.white.withAlpha(10)
+                            : AppColorPath.black.withAlpha(10),
                       ),
                     ),
                     child: Column(
@@ -105,33 +121,50 @@ class HomeScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Row with texts and icon (to be added later)
+                        // Row with crypto info
                         Row(
                           children: [
-                            const Expanded(
+                            Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     'Text 1',
-                                    style: AppTextStyle.textFont12W400,
+                                    style: AppTextStyle.textFont12W400.copyWith(
+                                      color: context
+                                          .theme.textTheme.bodyMedium?.color,
+                                    ),
                                   ),
                                   Text(
                                     'Text 2',
-                                    style: AppTextStyle.textFont12W400,
+                                    style: AppTextStyle.textFont12W400.copyWith(
+                                      color: context
+                                          .theme.textTheme.bodyLarge?.color,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                   Text(
                                     'Text 3',
-                                    style: AppTextStyle.textFont12W400,
+                                    style: AppTextStyle.textFont12W400.copyWith(
+                                      color: Colors.green,
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
-                            // Icon space (to be added later)
+                            // Crypto icon
                             Container(
-                              width: 20,
-                              height: 20,
-                              color: Colors.red[300],
+                              width: 24,
+                              height: 24,
+                              decoration: BoxDecoration(
+                                color: Colors.orange,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: const Icon(
+                                Icons.currency_bitcoin,
+                                color: Colors.white,
+                                size: 16,
+                              ),
                             ),
                           ],
                         ),
@@ -147,13 +180,19 @@ class HomeScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         // Bottom texts
-                        const Text(
-                          'Text ',
-                          style: AppTextStyle.textFont12W400,
+                        Text(
+                          'Text',
+                          style: AppTextStyle.textFont12W400.copyWith(
+                            color: context.theme.textTheme.bodyMedium?.color
+                                ?.withAlpha(70),
+                          ),
                         ),
-                        const Text(
-                          'Text ',
-                          style: AppTextStyle.textFont12W400,
+                        Text(
+                          'Text',
+                          style: AppTextStyle.textFont12W400.copyWith(
+                            color: context.theme.textTheme.bodyMedium?.color
+                                ?.withAlpha(70),
+                          ),
                         ),
                       ],
                     ),
@@ -172,21 +211,39 @@ class HomeScreen extends StatelessWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              itemCount: 20,
+              itemCount: 5,
               separatorBuilder: (context, index) => const SizedBox(height: 12),
               itemBuilder: (context, index) {
                 return Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: isDarkMode ? AppColorPath.darkLight : Colors.white,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: AppColorPath.black.withOpacity(0.1),
+                      color: isDarkMode
+                          ? Colors.white.withAlpha(10)
+                          : AppColorPath.black.withAlpha(10),
                     ),
                   ),
                   child: Row(
                     children: [
-                      // First Column
+                      // Left side with icon and name
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: index == 0 ? Colors.orange : Colors.blue,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Icon(
+                          index == 0 ? Icons.currency_bitcoin : Icons.diamond,
+                          color: Colors.white,
+                          size: 24,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+
+                      // Crypto info
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -195,16 +252,21 @@ class HomeScreen extends StatelessWidget {
                               'Text Line 1',
                               style: AppTextStyle.textFont14W400.copyWith(
                                 fontWeight: FontWeight.w600,
+                                color: context.theme.textTheme.bodyLarge?.color,
                               ),
                             ),
-                            const Text(
+                            Text(
                               'Text Line 2',
-                              style: AppTextStyle.textFont12W400,
+                              style: AppTextStyle.textFont12W400.copyWith(
+                                color: context.theme.textTheme.bodyMedium?.color
+                                    ?.withAlpha(70),
+                              ),
                             ),
                           ],
                         ),
                       ),
-                      // Second Column
+
+                      // Price and change
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
@@ -212,11 +274,14 @@ class HomeScreen extends StatelessWidget {
                             'Text Line 1',
                             style: AppTextStyle.textFont14W400.copyWith(
                               fontWeight: FontWeight.w600,
+                              color: context.theme.textTheme.bodyLarge?.color,
                             ),
                           ),
-                          const Text(
+                          Text(
                             'Text Line 2',
-                            style: AppTextStyle.textFont12W400,
+                            style: AppTextStyle.textFont12W400.copyWith(
+                              color: Colors.green,
+                            ),
                           ),
                         ],
                       ),
@@ -241,7 +306,7 @@ class HomeScreen extends StatelessWidget {
         Text(
           title,
           style: AppTextStyle.textFont16W400.copyWith(
-            color: AppColorPath.black,
+            color: context.theme.textTheme.bodyLarge?.color,
             fontWeight: FontWeight.w600,
           ),
         ),

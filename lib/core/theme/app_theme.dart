@@ -5,9 +5,18 @@ import 'package:flutter/material.dart';
 class AppTheme {
   /// Dark Theme
   ThemeData get darkTheme => ThemeData(
-        scaffoldBackgroundColor: AppColorPath.black,
-        appBarTheme: const AppBarTheme(backgroundColor: AppColorPath.black),
+        scaffoldBackgroundColor: AppColorPath.darkBackground,
+        appBarTheme:
+            const AppBarTheme(backgroundColor: AppColorPath.darkBackground),
+        colorScheme: const ColorScheme.dark(
+          primary: AppColorPath.blue,
+          surface: AppColorPath.darkBackground,
+          onSurface: AppColorPath.darkLight,
+        ),
         textTheme: TextTheme(
+          headlineLarge: AppTextStyle.textFont32W600.copyWith(
+            color: AppColorPath.white,
+          ),
           bodyMedium: AppTextStyle.textFont16W500.copyWith(
             color: AppColorPath.white,
           ),

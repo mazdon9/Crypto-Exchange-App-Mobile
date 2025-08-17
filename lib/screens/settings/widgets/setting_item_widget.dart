@@ -1,3 +1,4 @@
+import 'package:crypto_exchange_app/core/constants/app_colors.dart';
 import 'package:crypto_exchange_app/models/setting_item_data.dart';
 import 'package:crypto_exchange_app/providers/theme_provider.dart';
 import 'package:crypto_exchange_app/shared/app_text.dart';
@@ -17,6 +18,8 @@ class SettingItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,11 +28,13 @@ class SettingItemWidget extends StatelessWidget {
           padding: const EdgeInsets.only(left: 16, bottom: 8),
           child: AppText(
               title: title,
-              style: AppTextStyle.textFont14W400.copyWith(color: Colors.black)),
+              style: AppTextStyle.textFont14W400.copyWith(
+                color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
+              )),
         ),
         Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: isDarkMode ? AppColorPath.darkLight : AppColorPath.white,
             borderRadius: BorderRadius.circular(16),
           ),
           padding: const EdgeInsets.fromLTRB(12, 16, 0, 16),
@@ -41,10 +46,11 @@ class SettingItemWidget extends StatelessWidget {
               return _buildSettingItemWidget(context, items: items[index]);
             },
             separatorBuilder: (context, index) {
-              return const Padding(
-                padding: EdgeInsets.fromLTRB(28, 14, 0, 14),
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(28, 14, 0, 14),
                 child: Divider(
                   thickness: 1,
+                  color: isDarkMode ? Colors.grey[700] : Colors.grey[300],
                 ),
               );
             },
@@ -57,24 +63,35 @@ class SettingItemWidget extends StatelessWidget {
 
   Row _buildSettingItemWidget(BuildContext context,
       {required SettingItemData items}) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Row(
       children: [
         Image.asset(
           items.iconPath,
           width: 24,
           height: 24,
+          color: isDarkMode ? Colors.white : null,
         ),
         const SizedBox(width: 4),
         AppText(
             title: items.title,
-            style: AppTextStyle.textFont16W400.copyWith(color: Colors.black)),
+            style: AppTextStyle.textFont16W400.copyWith(
+              color: isDarkMode ? AppColorPath.white : AppColorPath.black,
+            )),
         const Spacer(),
         if (items.isDarkMode) ...[
-          const AppText(title: 'Dark Mode'),
+          AppText(
+            title: 'Dark mode',
+            style: AppTextStyle.textFont14W400.copyWith(
+              color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
+            ),
+          ),
           const SizedBox(width: 14),
           Switch(
             padding: EdgeInsets.zero,
             value: context.watch<ThemeProvider>().isDarkMode,
+            activeColor: AppColorPath.blue,
             onChanged: (value) {
               context.read<ThemeProvider>().toggleTheme();
             },
@@ -82,7 +99,11 @@ class SettingItemWidget extends StatelessWidget {
         ] else
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.arrow_forward_ios),
+            icon: Icon(
+              Icons.arrow_forward_ios,
+              color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
+              size: 16,
+            ),
           ),
         const SizedBox(width: 14),
       ],

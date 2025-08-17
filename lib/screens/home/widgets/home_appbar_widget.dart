@@ -1,4 +1,5 @@
 import 'package:crypto_exchange_app/core/constants/app_paths.dart';
+import 'package:crypto_exchange_app/core/extensions/context_extensions.dart';
 import 'package:crypto_exchange_app/screens/settings/setting_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,7 @@ class HomeAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: context.theme.appBarTheme.backgroundColor,
       elevation: 0,
       leading: Padding(
         padding: const EdgeInsets.all(12.0),
