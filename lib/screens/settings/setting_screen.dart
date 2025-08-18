@@ -1,5 +1,6 @@
 import 'package:crypto_exchange_app/core/constants/app_colors.dart';
 import 'package:crypto_exchange_app/core/constants/app_paths.dart';
+import 'package:crypto_exchange_app/core/enums/button_type.dart';
 import 'package:crypto_exchange_app/core/extensions/context_extensions.dart';
 import 'package:crypto_exchange_app/models/setting_item_data.dart';
 import 'package:crypto_exchange_app/screens/settings/widgets/setting_item_widget.dart';
@@ -15,26 +16,21 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  bool isDarkMode = false;
-
   void _showComingSoonDialog() {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor:
-            isDarkMode ? AppColorPath.darkLight : AppColorPath.white,
+        backgroundColor: context.theme.colorScheme.surface,
         title: Text(
           'Coming Soon',
           style: TextStyle(
-            color: isDarkMode ? AppColorPath.white : AppColorPath.black,
+            color: context.theme.colorScheme.onSurface,
           ),
         ),
         content: Text(
           'Opps! This feature will be updated later...',
           style: TextStyle(
-            color: isDarkMode ? AppColorPath.white : AppColorPath.black,
+            color: context.theme.colorScheme.onSurface,
           ),
         ),
         actions: [
@@ -112,8 +108,6 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
       backgroundColor: context.theme.scaffoldBackgroundColor,
       appBar: AppBar(
@@ -122,7 +116,7 @@ class _SettingScreenState extends State<SettingScreen> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: isDarkMode ? AppColorPath.white : AppColorPath.black,
+            color: context.theme.colorScheme.onSurface,
           ),
           onPressed: () => Navigator.pop(context),
         ),
@@ -135,7 +129,7 @@ class _SettingScreenState extends State<SettingScreen> {
           IconButton(
             icon: Icon(
               Icons.search,
-              color: isDarkMode ? AppColorPath.white : AppColorPath.black,
+              color: context.theme.colorScheme.onSurface,
             ),
             onPressed: _showComingSoonDialog,
           ),
@@ -175,16 +169,18 @@ class _SettingScreenState extends State<SettingScreen> {
             const SizedBox(height: 24),
 
             // Log Out Button
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: AppButton(
-                content: 'Log Out',
-                onTap: _showComingSoonDialog,
-                backgroundColor:
-                    isDarkMode ? AppColorPath.darkLight : AppColorPath.blue,
-                textColor: AppColorPath.white,
+            Center(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: AppButton(
+                  content: 'Log Out',
+                  onTap: _showComingSoonDialog,
+                  buttonType: ButtonType.secondaryWithTheme,
+                  backgroundColor: context.theme.colorScheme.primary,
+                  textColor: AppColorPath.white,
+                ),
               ),
             ),
             const SizedBox(height: 32),

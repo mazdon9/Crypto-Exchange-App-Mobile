@@ -10,13 +10,12 @@ class SettingProfileUserWiget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     const userId = "2895474";
 
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: isDarkMode ? AppColorPath.darkLight : AppColorPath.white,
+        color: context.theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -35,8 +34,7 @@ class SettingProfileUserWiget extends StatelessWidget {
                   Text(
                     'Dmitro \njo***@***com',
                     style: AppTextStyle.textFont16W400.copyWith(
-                      color:
-                          isDarkMode ? AppColorPath.white : AppColorPath.black,
+                      color: context.theme.colorScheme.onSurface,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -48,9 +46,7 @@ class SettingProfileUserWiget extends StatelessWidget {
                   Text(
                     'ID $userId',
                     style: AppTextStyle.textFont12W400.copyWith(
-                      color: isDarkMode
-                          ? Colors.grey[400]
-                          : AppColorPath.black.withAlpha(60),
+                      color: context.theme.colorScheme.onSurfaceVariant,
                     ),
                   ),
                   const SizedBox(width: 4),
@@ -64,14 +60,11 @@ class SettingProfileUserWiget extends StatelessWidget {
                               content: Text(
                                 'Copied to clipboard!',
                                 style: TextStyle(
-                                  color: isDarkMode
-                                      ? AppColorPath.white
-                                      : AppColorPath.black,
+                                  color: context.theme.colorScheme.onSurface,
                                 ),
                               ),
-                              backgroundColor: isDarkMode
-                                  ? AppColorPath.darkLight
-                                  : Colors.grey[800],
+                              backgroundColor:
+                                  context.theme.colorScheme.surface,
                             ),
                           );
                         }
@@ -80,9 +73,7 @@ class SettingProfileUserWiget extends StatelessWidget {
                     child: Icon(
                       Icons.copy,
                       size: 12,
-                      color: isDarkMode
-                          ? Colors.grey[400]
-                          : AppColorPath.black.withAlpha(60),
+                      color: context.theme.colorScheme.onSurfaceVariant,
                     ),
                   ),
                 ],

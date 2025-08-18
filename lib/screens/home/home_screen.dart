@@ -36,8 +36,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = context.theme.brightness == Brightness.dark;
-
     return Scaffold(
       backgroundColor: context.theme.scaffoldBackgroundColor,
       appBar: const HomeAppbarWidget(),
@@ -107,13 +105,10 @@ class HomeScreen extends StatelessWidget {
                     width: (156 / 375) * context.screenWidth,
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color:
-                          isDarkMode ? const Color(0xFF1E1E2E) : Colors.white,
+                      color: context.theme.colorScheme.surface,
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
-                        color: isDarkMode
-                            ? Colors.white.withAlpha(10)
-                            : AppColorPath.black.withAlpha(10),
+                        color: context.theme.colorScheme.outline,
                       ),
                     ),
                     child: Column(
@@ -183,15 +178,13 @@ class HomeScreen extends StatelessWidget {
                         Text(
                           'Text',
                           style: AppTextStyle.textFont12W400.copyWith(
-                            color: context.theme.textTheme.bodyMedium?.color
-                                ?.withAlpha(70),
+                            color: context.theme.colorScheme.onSurfaceVariant,
                           ),
                         ),
                         Text(
                           'Text',
                           style: AppTextStyle.textFont12W400.copyWith(
-                            color: context.theme.textTheme.bodyMedium?.color
-                                ?.withAlpha(70),
+                            color: context.theme.colorScheme.onSurfaceVariant,
                           ),
                         ),
                       ],
@@ -217,12 +210,10 @@ class HomeScreen extends StatelessWidget {
                 return Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: isDarkMode ? AppColorPath.darkLight : Colors.white,
+                    color: context.theme.colorScheme.surface,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: isDarkMode
-                          ? Colors.white.withAlpha(10)
-                          : AppColorPath.black.withAlpha(10),
+                      color: context.theme.colorScheme.outline,
                     ),
                   ),
                   child: Row(
@@ -258,8 +249,8 @@ class HomeScreen extends StatelessWidget {
                             Text(
                               'Text Line 2',
                               style: AppTextStyle.textFont12W400.copyWith(
-                                color: context.theme.textTheme.bodyMedium?.color
-                                    ?.withAlpha(70),
+                                color:
+                                    context.theme.colorScheme.onSurfaceVariant,
                               ),
                             ),
                           ],

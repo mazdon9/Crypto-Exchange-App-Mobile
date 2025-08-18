@@ -1,6 +1,7 @@
 import 'package:crypto_exchange_app/core/constants/app_colors.dart';
 import 'package:crypto_exchange_app/core/constants/app_paths.dart';
 import 'package:crypto_exchange_app/screens/home/home_screen.dart';
+import 'package:crypto_exchange_app/screens/trade/trade_screen.dart';
 import 'package:crypto_exchange_app/shared/app_text_style.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       case 0:
         return const HomeScreen();
       case 1:
-        return const Center(child: Text('Trade Screen'));
+        return const TradeScreen();
       case 2:
         return const Center(child: Text('Market Screen'));
       case 3:
@@ -41,30 +42,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: _getCurrentScreen(),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: isDarkMode ? AppColorPath.darkLight : Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         selectedItemColor: AppColorPath.blue,
-        unselectedItemColor: isDarkMode ? Colors.grey[400] : Colors.grey,
+        unselectedItemColor: Theme.of(context).colorScheme.onSurfaceVariant,
         selectedLabelStyle: AppTextStyle.textFont12W400.copyWith(
           color: AppColorPath.blue,
         ),
         unselectedLabelStyle: AppTextStyle.textFont12W400.copyWith(
-          color: isDarkMode ? Colors.grey[400] : Colors.grey,
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
         ),
         items: [
-          _buildBottomNavigationBarItemWidget(index: 0, isDarkMode: isDarkMode),
-          _buildBottomNavigationBarItemWidget(index: 1, isDarkMode: isDarkMode),
-          _buildBottomNavigationBarItemWidget(index: 2, isDarkMode: isDarkMode),
-          _buildBottomNavigationBarItemWidget(index: 3, isDarkMode: isDarkMode),
-          _buildBottomNavigationBarItemWidget(index: 4, isDarkMode: isDarkMode)
+          _buildBottomNavigationBarItemWidget(index: 0),
+          _buildBottomNavigationBarItemWidget(index: 1),
+          _buildBottomNavigationBarItemWidget(index: 2),
+          _buildBottomNavigationBarItemWidget(index: 3),
+          _buildBottomNavigationBarItemWidget(index: 4)
         ],
       ),
     );
@@ -72,7 +71,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   BottomNavigationBarItem _buildBottomNavigationBarItemWidget({
     required int index,
-    required bool isDarkMode,
   }) {
     return BottomNavigationBarItem(
       icon: Image.asset(
@@ -81,9 +79,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         height: 24,
         color: _selectedIndex == index
             ? AppColorPath.blue
-            : isDarkMode
-                ? Colors.grey[400]
-                : AppColorPath.black,
+            : Theme.of(context).colorScheme.onSurfaceVariant,
       ),
       label: _buildBottomNavigationBarItemLabel(index),
     );
