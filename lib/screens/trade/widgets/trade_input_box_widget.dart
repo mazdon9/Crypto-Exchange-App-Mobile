@@ -1,4 +1,4 @@
-import 'package:crypto_exchange_app/core/extensions/context_extensions.dart';
+import 'package:crypto_exchange_app/core/extensions/context_extension.dart';
 import 'package:crypto_exchange_app/shared/app_text_style.dart';
 import 'package:flutter/material.dart';
 

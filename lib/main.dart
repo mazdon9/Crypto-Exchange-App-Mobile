@@ -1,5 +1,10 @@
 import 'package:crypto_exchange_app/core/router/app_router.dart';
+import 'package:crypto_exchange_app/providers/home_provider.dart';
 import 'package:crypto_exchange_app/providers/theme_provider.dart';
+import 'package:crypto_exchange_app/providers/trade_provider.dart';
+import 'package:crypto_exchange_app/repositories/orderbook_repository.dart';
+import 'package:crypto_exchange_app/repositories/ticker_repository.dart';
+import 'package:crypto_exchange_app/services/binance_websocket_service.dart';
 import 'package:crypto_exchange_app/services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +33,19 @@ class CryptoExchangeApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        Provider(create: (context) => BinanceWebsocketService()),
+        Provider(
+            create: (context) =>
+                OrderbookRepository(context.read<BinanceWebsocketService>())),
+        Provider(
+            create: (context) =>
+                TickerRepository(context.read<BinanceWebsocketService>())),
+        ChangeNotifierProvider(
+            create: (context) =>
+                HomeProvider(context.read<TickerRepository>())),
+        ChangeNotifierProvider(
+            create: (context) =>
+                TradeProvider(context.read<OrderbookRepository>())),
       ],
       child: MyApp(
         isCompletedOnboarding: isCompletedOnboarding,

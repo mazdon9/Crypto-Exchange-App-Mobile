@@ -1,6 +1,6 @@
 import 'package:crypto_exchange_app/core/constants/app_colors.dart';
 import 'package:crypto_exchange_app/core/enums/button_type.dart';
-import 'package:crypto_exchange_app/core/extensions/context_extensions.dart';
+import 'package:crypto_exchange_app/core/extensions/context_extension.dart';
 import 'package:crypto_exchange_app/screens/trade/widgets/trade_input_box_widget.dart';
 import 'package:crypto_exchange_app/shared/app_button.dart';
 import 'package:crypto_exchange_app/shared/app_text_style.dart';
@@ -234,9 +234,8 @@ class TradingControlsWidget extends StatelessWidget {
 
         // Buy BTC Button
         AppButton(
-          content: 'Buy BTC',
+          title: 'Buy BTC',
           onTap: onBuyTap,
-          buttonType: ButtonType.defaultNoTheme,
         ),
       ],
     );

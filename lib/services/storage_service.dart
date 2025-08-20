@@ -36,4 +36,6 @@ class StorageService {
   Future<bool> getOnboardingCompleted() async {
     return getBool(onboardingCompleted);
   }
+
+  // set darkMode
 }

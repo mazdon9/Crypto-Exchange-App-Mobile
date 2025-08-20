@@ -1,5 +1,5 @@
 import 'package:crypto_exchange_app/core/constants/app_paths.dart';
-import 'package:crypto_exchange_app/core/extensions/context_extensions.dart';
+import 'package:crypto_exchange_app/core/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
 class TradingPairRowWidget extends StatelessWidget {

@@ -1,14 +1,8 @@
 import 'package:crypto_exchange_app/core/constants/app_colors.dart';
 import 'package:crypto_exchange_app/core/constants/app_paths.dart';
-import 'package:crypto_exchange_app/core/extensions/context_extensions.dart';
-import 'package:crypto_exchange_app/screens/trade/widgets/open_orders_row_widget.dart';
-import 'package:crypto_exchange_app/screens/trade/widgets/order_book_widget.dart';
-import 'package:crypto_exchange_app/screens/trade/widgets/price_info_row_widget.dart';
-import 'package:crypto_exchange_app/screens/trade/widgets/selection_bottom_sheet.dart';
-import 'package:crypto_exchange_app/screens/trade/widgets/tab_section_widget.dart';
-import 'package:crypto_exchange_app/screens/trade/widgets/trading_controls_widget.dart';
-import 'package:crypto_exchange_app/screens/trade/widgets/trading_pair_row_widget.dart';
+import 'package:crypto_exchange_app/core/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
+import 'widgets/widgets.dart';
 
 class TradeScreen extends StatefulWidget {
   const TradeScreen({super.key});
@@ -162,7 +156,7 @@ class _TradeScreenState extends State<TradeScreen> {
         actions: [
           IconButton(
             icon: Image.asset(
-              AppPaths.orderIcon,
+              AppPaths.favoritesIcon,
               width: 24,
               height: 24,
               color: context.theme.colorScheme.onSurface,
@@ -191,7 +185,6 @@ class _TradeScreenState extends State<TradeScreen> {
             onPairTap: _showPairBottomSheet,
             onMarketTap: _navigateToMarket,
           ),
-          const SizedBox(height: 16),
 
           // Price Info Row
           const PriceInfoRowWidget(
@@ -217,7 +210,7 @@ class _TradeScreenState extends State<TradeScreen> {
     );
   }
 
-  Widget _buildMainTradingSection() {
+  Padding _buildMainTradingSection() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(

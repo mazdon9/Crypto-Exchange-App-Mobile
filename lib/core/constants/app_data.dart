@@ -22,4 +22,27 @@ class AppData {
           'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Ut eget mauris massa pharetra.',
     ),
   ];
+
+  static final List<String> coins = [
+    'btcusdt',
+    'ethusdt',
+    'bnbusdt',
+    'solusdt',
+    'adausdt',
+    'xrpusdt',
+    'dotusdt',
+    'maticusdt',
+    'dogeusdt',
+    'avaxusdt',
+    'linkusdt',
+    'ltcusdt',
+    'atomusdt',
+    'nearusdt',
+    'filusdt',
+    'uniusdt',
+    'trxusdt',
+    'xlmusdt',
+    'apeusdt',
+    'egldusdt'
+  ];
 }

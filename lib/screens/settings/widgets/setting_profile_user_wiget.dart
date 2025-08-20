@@ -1,6 +1,6 @@
 import 'package:crypto_exchange_app/core/constants/app_colors.dart';
 import 'package:crypto_exchange_app/core/constants/app_paths.dart';
-import 'package:crypto_exchange_app/core/extensions/context_extensions.dart';
+import 'package:crypto_exchange_app/core/extensions/context_extension.dart';
 import 'package:crypto_exchange_app/shared/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -60,7 +60,7 @@ class SettingProfileUserWiget extends StatelessWidget {
                               content: Text(
                                 'Copied to clipboard!',
                                 style: TextStyle(
-                                  color: context.theme.colorScheme.onSurface,
+                                  color: context.surfaceColor,
                                 ),
                               ),
                               backgroundColor:

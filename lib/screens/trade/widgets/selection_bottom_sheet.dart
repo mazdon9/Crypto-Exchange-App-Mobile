@@ -1,4 +1,4 @@
-import 'package:crypto_exchange_app/core/extensions/context_extensions.dart';
+import 'package:crypto_exchange_app/core/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
 class SelectionBottomSheet extends StatelessWidget {
@@ -18,10 +18,11 @@ class SelectionBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: _getHeight(),
+      // height: _getHeight(),
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             title,

@@ -1,7 +1,7 @@
 import 'package:crypto_exchange_app/core/constants/app_colors.dart';
 import 'package:crypto_exchange_app/core/constants/app_paths.dart';
 import 'package:crypto_exchange_app/core/enums/button_type.dart';
-import 'package:crypto_exchange_app/core/extensions/context_extensions.dart';
+import 'package:crypto_exchange_app/core/extensions/context_extension.dart';
 import 'package:crypto_exchange_app/models/setting_item_data.dart';
 import 'package:crypto_exchange_app/screens/settings/widgets/setting_item_widget.dart';
 import 'package:crypto_exchange_app/screens/settings/widgets/setting_profile_user_wiget.dart';
@@ -175,11 +175,9 @@ class _SettingScreenState extends State<SettingScreen> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: AppButton(
-                  content: 'Log Out',
+                  title: 'Log Out',
                   onTap: _showComingSoonDialog,
-                  buttonType: ButtonType.secondaryWithTheme,
-                  backgroundColor: context.theme.colorScheme.primary,
-                  textColor: AppColorPath.white,
+                  buttonType: ButtonType.second,
                 ),
               ),
             ),

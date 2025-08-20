@@ -73,7 +73,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   _buildPageIndicator(),
                   const SizedBox(height: 24),
                   AppButton(
-                    content: _currentPage == _pages.length - 1
+                    title: _currentPage == _pages.length - 1
                         ? 'Get Started'
                         : 'Next',
                     onTap: _nextPage,
