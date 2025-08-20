@@ -36,4 +36,5 @@ class AppPaths {
   static const String sharePlusIcon = 'assets/icons/share_plus_icon.png';
   static const String supportIcon = 'assets/icons/support_icon.png';
   static const String themesIcon = 'assets/icons/themes_icon.png';
+  static const String orderIcon = 'assets/icons/oder_icon.png';
 }
