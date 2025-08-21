@@ -1,5 +1,4 @@
 import 'package:crypto_exchange_app/core/constants/app_colors.dart';
-import 'package:crypto_exchange_app/core/enums/button_type.dart';
 import 'package:crypto_exchange_app/core/extensions/context_extension.dart';
 import 'package:crypto_exchange_app/screens/trade/widgets/trade_input_box_widget.dart';
 import 'package:crypto_exchange_app/shared/app_button.dart';

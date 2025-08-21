@@ -19,6 +19,7 @@ class AppPaths {
   static const String vectorIcon = 'assets/icons/vector_icon.png';
   static const String favoritesIcon = 'assets/icons/favorites_icon.png';
   static const String walletIcon = 'assets/icons/wallet_icon.png';
+  static const String coinIcon = 'assets/icons/coin_icon.png';
 
   // AppBar Icons path
   static const String profileIcon = 'assets/icons/profile_icon.png';

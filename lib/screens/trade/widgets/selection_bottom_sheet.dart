@@ -51,12 +51,6 @@ class SelectionBottomSheet extends StatelessWidget {
     );
   }
 
-  double _getHeight() {
-    if (items.length <= 3) return 200;
-    if (items.length <= 5) return 300;
-    return 400;
-  }
-
   static void show({
     required BuildContext context,
     required String title,

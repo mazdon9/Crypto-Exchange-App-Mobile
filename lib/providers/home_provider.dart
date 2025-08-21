@@ -20,7 +20,36 @@ class HomeProvider with ChangeNotifier {
 
   // list of ticker
   List<Ticker> _tickerList = [];
-  List<Ticker> get tickerList => _tickerList;
+  // Chỉ trả về đúng 20 đồng coin theo AppData.coins, đúng thứ tự
+  List<Ticker> get tickerList {
+    final coinOrder = AppData.coins;
+    final tickerMap = {for (var t in _tickerList) t.symbol.toLowerCase(): t};
+    // Định dạng lại lastPrice cho từng ticker
+    List<Ticker> result = [];
+    for (final c in coinOrder) {
+      final t = tickerMap[c];
+      if (t != null) {
+        String formattedPrice = t.lastPrice;
+        double? priceNum = double.tryParse(t.lastPrice);
+        if (priceNum != null) {
+          // Format phần nguyên với dấu cách mỗi 3 số
+          List<String> parts = priceNum.toStringAsFixed(2).split('.');
+          String intPart = parts[0].replaceAllMapped(
+            RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+            (Match m) => '${m[1]} ',
+          );
+          formattedPrice = '$intPart.${parts[1]}';
+        }
+        result.add(Ticker(
+          symbol: t.symbol,
+          lastPrice: formattedPrice,
+          priceChangePercent: t.priceChangePercent,
+          volume: t.volume,
+        ));
+      }
+    }
+    return result;
+  }
 
   // init home provider -> connect to ticker repository then listen to websocket
   Future<void> init() async {
