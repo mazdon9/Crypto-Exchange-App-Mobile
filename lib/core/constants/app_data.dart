@@ -26,7 +26,7 @@ class AppData {
   static final List<String> coins = [
     'btcusdt',
     'ethusdt',
-    'pepeusdt',
+    'bnbusdt',
     'solusdt',
     'adausdt',
     'xrpusdt',

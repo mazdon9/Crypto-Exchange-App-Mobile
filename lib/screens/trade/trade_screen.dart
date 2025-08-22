@@ -1,7 +1,11 @@
 import 'package:crypto_exchange_app/core/constants/app_colors.dart';
 import 'package:crypto_exchange_app/core/constants/app_paths.dart';
 import 'package:crypto_exchange_app/core/extensions/context_extension.dart';
+import 'package:crypto_exchange_app/models/ticker.dart';
+import 'package:crypto_exchange_app/providers/home_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'widgets/widgets.dart';
 
 class TradeScreen extends StatefulWidget {
@@ -133,80 +137,98 @@ class _TradeScreenState extends State<TradeScreen> {
   Widget build(BuildContext context) {
     final isDarkMode = context.theme.brightness == Brightness.dark;
 
-    return Scaffold(
-      backgroundColor: context.theme.scaffoldBackgroundColor,
-      appBar: AppBar(
-        backgroundColor: context.theme.scaffoldBackgroundColor,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: context.theme.colorScheme.onSurface,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          'Trade',
-          style: context.theme.textTheme.bodyLarge?.copyWith(
-            color: isDarkMode ? AppColorPath.white : AppColorPath.black,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Image.asset(
-              AppPaths.favoritesIcon,
-              width: 24,
-              height: 24,
-              color: context.theme.colorScheme.onSurface,
+    return Consumer<HomeProvider>(
+      builder: (context, homeProvider, child) {
+        final selectedSymbol = _selectedPair.replaceAll('/', '').toUpperCase();
+        final selectedTicker = homeProvider.tickerList.firstWhere(
+          (t) => t.symbol.toUpperCase() == selectedSymbol,
+          orElse: () => Ticker(
+              symbol: '--',
+              priceChangePercent: '0',
+              lastPrice: '--',
+              volume: '0'),
+        );
+        final price = selectedTicker.lastPrice;
+        final dollarPrice = '≈\$${selectedTicker.lastPrice}';
+        final percentage =
+            '${selectedTicker.priceChangePercent.startsWith('-') ? '' : '+'}${selectedTicker.priceChangePercent}%';
+
+        return Scaffold(
+          backgroundColor: context.theme.scaffoldBackgroundColor,
+          appBar: AppBar(
+            backgroundColor: context.theme.scaffoldBackgroundColor,
+            elevation: 0,
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: context.theme.colorScheme.onSurface,
+              ),
+              onPressed: () => Navigator.pop(context),
             ),
-            onPressed: () {},
+            title: Text(
+              'Trade',
+              style: context.theme.textTheme.bodyLarge?.copyWith(
+                color: isDarkMode ? AppColorPath.white : AppColorPath.black,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            centerTitle: true,
+            actions: [
+              IconButton(
+                icon: Image.asset(
+                  AppPaths.favoritesIcon,
+                  width: 24,
+                  height: 24,
+                  color: context.theme.colorScheme.onSurface,
+                ),
+                onPressed: () {},
+              ),
+            ],
           ),
-        ],
-      ),
-      body: Column(
-        children: [
-          // Tab Section
-          TabSectionWidget(
-            tabs: _tabs,
-            selectedTabIndex: _selectedTabIndex,
-            onTabSelected: (index) {
-              setState(() {
-                _selectedTabIndex = index;
-              });
-            },
-          ),
-          const SizedBox(height: 16),
+          body: Column(
+            children: [
+              // Tab Section
+              TabSectionWidget(
+                tabs: _tabs,
+                selectedTabIndex: _selectedTabIndex,
+                onTabSelected: (index) {
+                  setState(() {
+                    _selectedTabIndex = index;
+                  });
+                },
+              ),
+              const SizedBox(height: 16),
 
-          // Trading Pair Row
-          TradingPairRowWidget(
-            selectedPair: _selectedPair,
-            onPairTap: _showPairBottomSheet,
-            onMarketTap: _navigateToMarket,
-          ),
+              // Trading Pair Row
+              TradingPairRowWidget(
+                selectedPair: _selectedPair,
+                onPairTap: _showPairBottomSheet,
+                onMarketTap: _navigateToMarket,
+              ),
 
-          // Price Info Row
-          const PriceInfoRowWidget(
-            price: '30,113.80',
-            dollarPrice: '≈\$30,113.80',
-            percentage: '+2.76%',
-          ),
-          const SizedBox(height: 16),
+              // Price Info Row
+              PriceInfoRowWidget(
+                price: price,
+                dollarPrice: dollarPrice,
+                percentage: percentage,
+              ),
+              const SizedBox(height: 16),
 
-          // Main Trading Section
-          Expanded(
-            child: _buildMainTradingSection(),
-          ),
-          const SizedBox(height: 16),
+              // Main Trading Section
+              Expanded(
+                child: _buildMainTradingSection(),
+              ),
+              const SizedBox(height: 16),
 
-          // Open Orders Row
-          OpenOrdersRowWidget(
-            onMoreTap: _showComingSoonSnackbar,
+              // Open Orders Row
+              OpenOrdersRowWidget(
+                onMoreTap: _showComingSoonSnackbar,
+              ),
+              const SizedBox(height: 16),
+            ],
           ),
-          const SizedBox(height: 16),
-        ],
-      ),
+        );
+      },
     );
   }
 

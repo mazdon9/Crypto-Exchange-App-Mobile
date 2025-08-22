@@ -3,9 +3,23 @@ import 'package:crypto_exchange_app/models/orderbook.dart';
 import 'package:crypto_exchange_app/providers/trade_provider.dart';
 import 'package:crypto_exchange_app/shared/app_text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class OrderBookWidget extends StatelessWidget {
+  // Format for Price column
+  String formatPrice(String value) {
+    final number = double.tryParse(value) ?? 0;
+    final formatter = NumberFormat('#,##0.00');
+    return formatter.format(number);
+  }
+
+  // Format for Amount column
+  String formatAmount(String value) {
+    final number = double.tryParse(value) ?? 0;
+    return number.toStringAsFixed(5);
+  }
+
   final String selectedOrderType;
   final String selectedUnit;
   final VoidCallback onOrderTypeTap;
@@ -116,6 +130,7 @@ class OrderBookWidget extends StatelessWidget {
         Expanded(
           child: _buildBidOrderBookData(context),
         ),
+
         Expanded(
           child: _buildAskOrderBookData(context),
         ),
@@ -167,7 +182,7 @@ class OrderBookWidget extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              data.price,
+              formatPrice(data.price),
               style: AppTextStyle.textFont12W400.copyWith(
                 color: isAsk ? Colors.green : Colors.red,
               ),
@@ -176,7 +191,7 @@ class OrderBookWidget extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              data.quantity,
+              formatAmount(data.quantity),
               style: AppTextStyle.textFont12W400.copyWith(
                 color: context.theme.textTheme.bodyMedium?.color,
               ),
