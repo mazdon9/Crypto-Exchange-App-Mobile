@@ -42,9 +42,11 @@ class TradeProvider with ChangeNotifier {
   }
 
   Future<void> connectToOrderbook(String symbol) async {
+    _asks = [];
+    _bids = [];
     try {
       _setLoading(true);
-      await orderbookRepository.connectToOrderbook(symbol: _currentSymbol);
+      await orderbookRepository.connectToOrderbook(symbol: symbol);
       orderbookRepository.orderbookStream.listen((message) {
         _asks = message.asks.take(10).toList();
         _bids = message.bids.take(10).toList();

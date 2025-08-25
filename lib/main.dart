@@ -1,7 +1,9 @@
 import 'package:crypto_exchange_app/core/router/app_router.dart';
+import 'package:crypto_exchange_app/providers/favorite_provider.dart';
 import 'package:crypto_exchange_app/providers/home_provider.dart';
 import 'package:crypto_exchange_app/providers/theme_provider.dart';
 import 'package:crypto_exchange_app/providers/trade_provider.dart';
+import 'package:crypto_exchange_app/repositories/favorite_repository.dart';
 import 'package:crypto_exchange_app/repositories/orderbook_repository.dart';
 import 'package:crypto_exchange_app/repositories/ticker_repository.dart';
 import 'package:crypto_exchange_app/services/binance_websocket_service.dart';
@@ -38,14 +40,24 @@ class CryptoExchangeApp extends StatelessWidget {
             create: (context) =>
                 OrderbookRepository(context.read<BinanceWebsocketService>())),
         Provider(
-            create: (context) =>
-                TickerRepository(context.read<BinanceWebsocketService>())),
+          create: (context) =>
+              TickerRepository(context.read<BinanceWebsocketService>()),
+        ),
+        Provider(
+          create: (context) => FavoriteRepository(),
+        ),
         ChangeNotifierProvider(
             create: (context) =>
                 HomeProvider(context.read<TickerRepository>())),
         ChangeNotifierProvider(
             create: (context) =>
                 TradeProvider(context.read<OrderbookRepository>())),
+        ChangeNotifierProvider(
+          create: (context) => FavoriteProvider(
+            context.read<FavoriteRepository>(),
+            context.read<TickerRepository>(),
+          ),
+        ),
       ],
       child: MyApp(
         isCompletedOnboarding: isCompletedOnboarding,

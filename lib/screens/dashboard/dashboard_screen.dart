@@ -1,5 +1,6 @@
 import 'package:crypto_exchange_app/core/constants/app_colors.dart';
 import 'package:crypto_exchange_app/core/constants/app_paths.dart';
+import 'package:crypto_exchange_app/screens/farvorite/favorite_creen.dart';
 import 'package:crypto_exchange_app/screens/home/home_screen.dart';
 import 'package:crypto_exchange_app/screens/trade/trade_screen.dart';
 import 'package:crypto_exchange_app/shared/app_text_style.dart';
@@ -15,24 +16,6 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
 
-  // Method to get current screen based on selected index
-  Widget _getCurrentScreen() {
-    switch (_selectedIndex) {
-      case 0:
-        return const HomeScreen();
-      case 1:
-        return const TradeScreen();
-      case 2:
-        return const Center(child: Text('Market Screen'));
-      case 3:
-        return const Center(child: Text('Favorites Screen'));
-      case 4:
-        return const Center(child: Text('Wallet Screen'));
-      default:
-        return const HomeScreen();
-    }
-  }
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -44,7 +27,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: _getCurrentScreen(),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: const [
+          HomeScreen(),
+          TradeScreen(),
+          Center(child: Text('Market Screen')),
+          FavoriteScreen(),
+          Center(child: Text('Wallet Screen')),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Theme.of(context).colorScheme.surface,

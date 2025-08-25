@@ -63,8 +63,8 @@ class HomeProvider with ChangeNotifier {
       tickerRepository.coinUpdates.listen(
         (message) {
           _tickerList = message.values.toList();
-          debugPrint(
-              "Ticker repository updated with length ${_tickerList.length}");
+          // debugPrint(
+          //     "Ticker repository updated with length ${_tickerList.length}");
           notifyListeners();
         },
         onError: (error) {
@@ -91,4 +91,10 @@ class HomeProvider with ChangeNotifier {
     _error = value;
     notifyListeners();
   }
+
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   super.dispose();
+  // }
 }

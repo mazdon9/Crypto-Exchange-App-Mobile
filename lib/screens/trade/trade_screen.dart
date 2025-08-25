@@ -1,8 +1,11 @@
 import 'package:crypto_exchange_app/core/constants/app_colors.dart';
 import 'package:crypto_exchange_app/core/constants/app_paths.dart';
 import 'package:crypto_exchange_app/core/extensions/context_extension.dart';
+import 'package:crypto_exchange_app/core/router/app_router.dart';
 import 'package:crypto_exchange_app/models/ticker.dart';
+import 'package:crypto_exchange_app/providers/favorite_provider.dart';
 import 'package:crypto_exchange_app/providers/home_provider.dart';
+import 'package:crypto_exchange_app/providers/trade_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,17 +40,17 @@ class _TradeScreenState extends State<TradeScreen> {
     'DOT/USDT',
     'DOGE/USDT',
     'AVAX/USDT',
-    'MATIC/USDT',
+    // 'MATIC/USDT',
     'LINK/USDT',
     'UNI/USDT',
     'LTC/USDT',
-    'BCH/USDT',
+    // 'BCH/USDT',
     'XLM/USDT',
     'VET/USDT',
     'ICP/USDT',
     'FIL/USDT',
     'TRX/USDT',
-    'ETC/USDT'
+    // 'ETC/USDT'
   ];
   final List<String> _orderTypes = ['5', '10', '25', '50', '100'];
   final List<String> _units = ['0.00001', '0.0001', '0.001', '0.01', '0.1'];
@@ -63,6 +66,8 @@ class _TradeScreenState extends State<TradeScreen> {
         setState(() {
           _selectedPair = value;
         });
+        context.read<TradeProvider>().connectToOrderbook(
+            _selectedPair.replaceAll('/', '').toLowerCase());
       },
     );
   }
@@ -122,20 +127,19 @@ class _TradeScreenState extends State<TradeScreen> {
   }
 
   void _navigateToMarket() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Navigate to Market Screen',
-          style: TextStyle(color: context.theme.colorScheme.onSurface),
-        ),
-        backgroundColor: context.theme.colorScheme.surface,
-      ),
-    );
+    Navigator.pushNamed(context, AppRoutes.tradingScreen);
+  }
+
+  @override
+  void initState() {
+    print("Init state");
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final isDarkMode = context.theme.brightness == Brightness.dark;
+    print("Init again");
 
     return Consumer<HomeProvider>(
       builder: (context, homeProvider, child) {
@@ -181,7 +185,11 @@ class _TradeScreenState extends State<TradeScreen> {
                   height: 24,
                   color: context.theme.colorScheme.onSurface,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  context
+                      .read<FavoriteProvider>()
+                      .toggleFavoriteToken(selectedSymbol);
+                },
               ),
             ],
           ),

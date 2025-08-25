@@ -60,7 +60,7 @@ class BinanceWebsocketService {
 
         /// Add the ticker - coin to stream to emit data
         _tickerStreamController.add(_tickerMap);
-        debugPrint(' tickerMap length: ${_tickerMap.length}');
+        // debugPrint(' tickerMap length: ${_tickerMap.length}');
       }, onError: (error) {
         debugPrint('Error on listen to _tickerChannel: $error');
       }, onDone: () {
@@ -86,7 +86,7 @@ class BinanceWebsocketService {
   static const String _baseOrderbookUrl = 'wss://stream.binance.com:9443/ws/';
 
   /// StreamController for orderbook data
-  final StreamController<Orderbook> _oderbookStreamController =
+  StreamController<Orderbook> _oderbookStreamController =
       StreamController<Orderbook>.broadcast();
 
   /// Stream for orderbook data to listen
@@ -96,11 +96,15 @@ class BinanceWebsocketService {
 
   /// Connect to orderbook
   Future<void> connectToOrderbook({required String symbol}) async {
+    await disposeOrderbook();
     try {
       final url = '$_baseOrderbookUrl${symbol.toLowerCase()}@depth';
 
       /// create websocket channel
       _orderbookChannel = WebSocketChannel.connect(Uri.parse(url));
+
+      /// re-create orderbook stream controller
+      _oderbookStreamController = StreamController<Orderbook>.broadcast();
 
       if (_orderbookChannel == null) return;
 

@@ -69,17 +69,56 @@ class FavoriteScreen extends StatelessWidget {
                     final ticker = favorites[index];
                     return Slidable(
                       key: ValueKey(ticker.symbol),
-                      motion: const DrawerMotion(),
-                      actions: [
-                        SlidableAction(
-                          onPressed: (_) =>
-                              provider.removeFavorite(ticker.symbol),
-                          backgroundColor: Colors.red,
-                          foregroundColor: Colors.white,
-                          icon: Icons.delete,
-                          label: 'Remove',
-                        ),
-                      ],
+                      // The start action pane is the one at the left or the top side.
+                      startActionPane: ActionPane(
+                        // A motion is a widget used to control how the pane animates.
+                        motion: const ScrollMotion(),
+
+                        // A pane can dismiss the Slidable.
+                        dismissible: DismissiblePane(onDismissed: () {}),
+
+                        // All actions are defined in the children parameter.
+                        children: [
+                          // A SlidableAction can have an icon and/or a label.
+                          SlidableAction(
+                            onPressed: (_) {},
+                            backgroundColor: Color(0xFFFE4A49),
+                            foregroundColor: Colors.white,
+                            icon: Icons.delete,
+                            label: 'Delete',
+                          ),
+                          SlidableAction(
+                            onPressed: (_) {},
+                            backgroundColor: Color(0xFF21B7CA),
+                            foregroundColor: Colors.white,
+                            icon: Icons.share,
+                            label: 'Share',
+                          ),
+                        ],
+                      ),
+
+                      // The end action pane is the one at the right or the bottom side.
+                      endActionPane: ActionPane(
+                        motion: const ScrollMotion(),
+                        children: [
+                          SlidableAction(
+                            // An action can be bigger than the others.
+                            flex: 2,
+                            onPressed: (_) {},
+                            backgroundColor: Color(0xFF7BC043),
+                            foregroundColor: Colors.white,
+                            icon: Icons.archive,
+                            label: 'Archive',
+                          ),
+                          SlidableAction(
+                            onPressed: (_) {},
+                            backgroundColor: Color(0xFF0392CF),
+                            foregroundColor: Colors.white,
+                            icon: Icons.save,
+                            label: 'Save',
+                          ),
+                        ],
+                      ),
                       child: Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
@@ -104,13 +143,14 @@ class FavoriteScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     ticker.symbol.replaceAll('USDT', '/USDT'),
-                                    style: AppTextStyle.textFont16W600,
+                                    style: AppTextStyle.textFont16W500
+                                        .copyWith(color: Colors.black),
                                   ),
                                   const SizedBox(height: 2),
                                   Text(
                                     'Vol ${ticker.volume}',
-                                    style: AppTextStyle.textFont12W400
-                                        .copyWith(color: AppColorPath.grey),
+                                    style: AppTextStyle.textFont12W400.copyWith(
+                                        color: AppColorPath.textSecondary),
                                   ),
                                 ],
                               ),
@@ -123,7 +163,8 @@ class FavoriteScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     ticker.lastPrice,
-                                    style: AppTextStyle.textFont16W600,
+                                    style: AppTextStyle.textFont16W500
+                                        .copyWith(color: Colors.black),
                                   ),
                                   const SizedBox(height: 2),
                                   Container(
@@ -138,8 +179,8 @@ class FavoriteScreen extends StatelessWidget {
                                     ),
                                     child: Text(
                                       '${ticker.priceChangePercent.startsWith('-') ? '' : '+'}${ticker.priceChangePercent}%',
-                                      style: AppTextStyle.textFont12W600
-                                          .copyWith(color: Colors.white),
+                                      style: AppTextStyle.textFont12W400
+                                          .copyWith(color: Colors.black),
                                     ),
                                   ),
                                 ],

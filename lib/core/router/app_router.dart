@@ -3,6 +3,7 @@ import 'package:crypto_exchange_app/screens/home/home_screen.dart';
 import 'package:crypto_exchange_app/screens/onboarding/onboarding_screen.dart';
 import 'package:crypto_exchange_app/screens/settings/setting_screen.dart';
 import 'package:crypto_exchange_app/screens/trade/trade_screen.dart';
+import 'package:crypto_exchange_app/screens/trading/trading_screen.dart';
 
 class AppRoutes {
   static const String onboardingScreenRouter = 'onboarding-screen';
@@ -10,6 +11,7 @@ class AppRoutes {
   static const String homeScreenRouter = 'home-screen';
   static const String settingScreenRouter = 'setting-screen';
   static const String tradeScreenRouter = 'trade-screen';
+  static const String tradingScreen = 'trading-screen';
 
   static final routes = {
     onboardingScreenRouter: (context) => const OnboardingScreen(),
@@ -17,5 +19,6 @@ class AppRoutes {
     homeScreenRouter: (context) => const HomeScreen(),
     settingScreenRouter: (context) => const SettingScreen(),
     tradeScreenRouter: (context) => const TradeScreen(),
+    tradingScreen: (context) => const TradingScreen(),
   };
 }
