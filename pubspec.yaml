@@ -50,6 +50,9 @@ dependencies:
   # Web view
   webview_flutter: ^4.10.0
 
+  #slidable
+  flutter_slidable: ^0.6.0
+
   #intl
   intl: ^0.18.1
 
