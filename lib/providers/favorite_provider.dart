@@ -55,7 +55,7 @@ class FavoriteProvider with ChangeNotifier {
 
   /// Toggle favorite
   Future<void> toggleFavoriteToken(String symbol) async {
-    await favoriteRepository.toggleFavoriteToken(symbol);
+    await favoriteRepository.toggleFavoriteToken(symbol.toLowerCase());
     _favoriteTokens = favoriteRepository.getFavoriteTokens();
     _updateFavoriteCoins();
     notifyListeners();

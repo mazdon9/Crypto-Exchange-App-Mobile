@@ -44,13 +44,12 @@ class HomeScreen extends StatelessWidget {
       builder: (context, homeProvider, child) {
         final tickerList = homeProvider.tickerList;
         // Calculate portfolio balance and percent from tickerList
-        double portfolioBalance = 0;
         double percentChange = 0;
         if (tickerList.isNotEmpty) {
           // Example: sum lastPrice for demo, you should use your real logic
-          portfolioBalance = tickerList
-              .map((e) => double.tryParse(e.lastPrice) ?? 0)
-              .reduce((a, b) => a + b);
+          // tickerList
+          //     .map((e) => double.tryParse(e.lastPrice) ?? 0)
+          //     .reduce((a, b) => a + b);
           percentChange = tickerList
                   .map((e) => double.tryParse(e.priceChangePercent) ?? 0)
                   .reduce((a, b) => a + b) /

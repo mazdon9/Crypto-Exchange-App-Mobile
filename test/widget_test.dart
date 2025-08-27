@@ -11,7 +11,8 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   testWidgets('Onboarding screen test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const CryptoExchangeApp());
+    await tester
+        .pumpWidget(const CryptoExchangeApp(isCompletedOnboarding: true));
 
     // Verify that we have onboarding content
     expect(find.text('Take hold of your finances'), findsOneWidget);

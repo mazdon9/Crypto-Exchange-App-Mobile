@@ -76,20 +76,27 @@ class FavoriteScreen extends StatelessWidget {
 
                         // A pane can dismiss the Slidable.
                         dismissible: DismissiblePane(onDismissed: () {}),
+                        dragDismissible: false,
 
                         // All actions are defined in the children parameter.
                         children: [
                           // A SlidableAction can have an icon and/or a label.
                           SlidableAction(
-                            onPressed: (_) {},
-                            backgroundColor: Color(0xFFFE4A49),
+                            onPressed: (_) {
+                              provider.toggleFavoriteToken(ticker.symbol);
+                            },
+                            backgroundColor: const Color(0xFFFE4A49),
                             foregroundColor: Colors.white,
                             icon: Icons.delete,
                             label: 'Delete',
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                            ),
                           ),
                           SlidableAction(
                             onPressed: (_) {},
-                            backgroundColor: Color(0xFF21B7CA),
+                            backgroundColor: const Color(0xFF21B7CA),
                             foregroundColor: Colors.white,
                             icon: Icons.share,
                             label: 'Share',
@@ -100,19 +107,20 @@ class FavoriteScreen extends StatelessWidget {
                       // The end action pane is the one at the right or the bottom side.
                       endActionPane: ActionPane(
                         motion: const ScrollMotion(),
+                        dragDismissible: false,
                         children: [
                           SlidableAction(
                             // An action can be bigger than the others.
                             flex: 2,
                             onPressed: (_) {},
-                            backgroundColor: Color(0xFF7BC043),
+                            backgroundColor: const Color(0xFF7BC043),
                             foregroundColor: Colors.white,
                             icon: Icons.archive,
                             label: 'Archive',
                           ),
                           SlidableAction(
                             onPressed: (_) {},
-                            backgroundColor: Color(0xFF0392CF),
+                            backgroundColor: const Color(0xFF0392CF),
                             foregroundColor: Colors.white,
                             icon: Icons.save,
                             label: 'Save',
@@ -126,7 +134,7 @@ class FavoriteScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.03),
+                              color: Colors.black.withValues(alpha: 0.03),
                               blurRadius: 4,
                               offset: const Offset(0, 2),
                             ),

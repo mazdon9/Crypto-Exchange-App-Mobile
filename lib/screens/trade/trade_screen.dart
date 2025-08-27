@@ -131,14 +131,14 @@ class _TradeScreenState extends State<TradeScreen> {
 
   @override
   void initState() {
-    print("Init state");
+    debugPrint("Init state");
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final isDarkMode = context.theme.brightness == Brightness.dark;
-    print("Init again");
+    debugPrint("Init again");
 
     return Consumer2<HomeProvider, FavoriteProvider>(
       builder: (context, homeProvider, favoriteProvider, child) {
@@ -191,7 +191,6 @@ class _TradeScreenState extends State<TradeScreen> {
                   context
                       .read<FavoriteProvider>()
                       .toggleFavoriteToken(selectedSymbol.toLowerCase());
-                  setState(() {});
                 },
               ),
             ],
@@ -261,49 +260,49 @@ class _TradeScreenState extends State<TradeScreen> {
           ),
           const SizedBox(width: 12),
           // Right Column - Trading Controls
-          Expanded(
-            child: TradingControlsWidget(
-              isBuySelected: _isBuySelected,
-              selectedLimit: _selectedLimit,
-              sliderValue: _sliderValue,
-              usdtAmount: _usdtAmount,
-              btcAmount: _btcAmount,
-              onBuySellChanged: (isBuy) {
-                setState(() {
-                  _isBuySelected = isBuy;
-                });
-              },
-              onLimitTap: _showLimitBottomSheet,
-              onSliderChanged: (value) {
-                setState(() {
-                  _sliderValue = value;
-                });
-              },
-              onUsdtIncrease: () {
-                setState(() {
-                  _usdtAmount++;
-                });
-              },
-              onUsdtDecrease: () {
-                setState(() {
-                  if (_usdtAmount > 0) _usdtAmount--;
-                });
-              },
-              onBtcIncrease: () {
-                setState(() {
-                  _btcAmount++;
-                });
-              },
-              onBtcDecrease: () {
-                setState(() {
-                  if (_btcAmount > 0) _btcAmount--;
-                });
-              },
-              onBuyTap: () {
-                // Implement buy functionality
-              },
-            ),
-          ),
+          // Expanded(
+          //   child: TradingControlsWidget(
+          //     isBuySelected: _isBuySelected,
+          //     selectedLimit: _selectedLimit,
+          //     sliderValue: _sliderValue,
+          //     usdtAmount: _usdtAmount,
+          //     btcAmount: _btcAmount,
+          //     onBuySellChanged: (isBuy) {
+          //       setState(() {
+          //         _isBuySelected = isBuy;
+          //       });
+          //     },
+          //     onLimitTap: _showLimitBottomSheet,
+          //     onSliderChanged: (value) {
+          //       setState(() {
+          //         _sliderValue = value;
+          //       });
+          //     },
+          //     onUsdtIncrease: () {
+          //       setState(() {
+          //         _usdtAmount++;
+          //       });
+          //     },
+          //     onUsdtDecrease: () {
+          //       setState(() {
+          //         if (_usdtAmount > 0) _usdtAmount--;
+          //       });
+          //     },
+          //     onBtcIncrease: () {
+          //       setState(() {
+          //         _btcAmount++;
+          //       });
+          //     },
+          //     onBtcDecrease: () {
+          //       setState(() {
+          //         if (_btcAmount > 0) _btcAmount--;
+          //       });
+          //     },
+          //     onBuyTap: () {
+          //       // Implement buy functionality
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );

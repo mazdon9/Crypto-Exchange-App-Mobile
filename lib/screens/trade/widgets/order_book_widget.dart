@@ -36,6 +36,7 @@ class OrderBookWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Order Bk No. and Unit Row
@@ -142,6 +143,8 @@ class OrderBookWidget extends StatelessWidget {
     return Consumer<TradeProvider>(
       builder: (_, tradeProvider, __) {
         return ListView.builder(
+          padding: EdgeInsets.zero,
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: tradeProvider.asks.length,
           itemBuilder: (context, index) {
             final data = tradeProvider.asks[index];
@@ -160,6 +163,7 @@ class OrderBookWidget extends StatelessWidget {
     return Consumer<TradeProvider>(
       builder: (_, tradeProvider, __) {
         return ListView.builder(
+          padding: EdgeInsets.zero,
           itemCount: tradeProvider.bids.length,
           itemBuilder: (context, index) {
             final data = tradeProvider.bids[index];
