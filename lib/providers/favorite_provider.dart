@@ -4,6 +4,11 @@ import 'package:crypto_exchange_app/repositories/ticker_repository.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteProvider with ChangeNotifier {
+  /// Kiểm tra một coin có đang được favorite không
+  bool isFavorite(String symbol) {
+    return _favoriteTokens.contains(symbol.toLowerCase());
+  }
+
   FavoriteRepository favoriteRepository;
   TickerRepository tickerRepository;
 

@@ -1,5 +1,4 @@
 import 'package:crypto_exchange_app/core/constants/app_colors.dart';
-import 'package:crypto_exchange_app/core/constants/app_paths.dart';
 import 'package:crypto_exchange_app/core/extensions/context_extension.dart';
 import 'package:crypto_exchange_app/core/router/app_router.dart';
 import 'package:crypto_exchange_app/models/ticker.dart';
@@ -141,8 +140,8 @@ class _TradeScreenState extends State<TradeScreen> {
     final isDarkMode = context.theme.brightness == Brightness.dark;
     print("Init again");
 
-    return Consumer<HomeProvider>(
-      builder: (context, homeProvider, child) {
+    return Consumer2<HomeProvider, FavoriteProvider>(
+      builder: (context, homeProvider, favoriteProvider, child) {
         final selectedSymbol = _selectedPair.replaceAll('/', '').toUpperCase();
         final selectedTicker = homeProvider.tickerList.firstWhere(
           (t) => t.symbol.toUpperCase() == selectedSymbol,
@@ -153,9 +152,13 @@ class _TradeScreenState extends State<TradeScreen> {
               volume: '0'),
         );
         final price = selectedTicker.lastPrice;
-        final dollarPrice = '≈\$${selectedTicker.lastPrice}';
+        final dollarPrice = selectedTicker.lastPrice != '--'
+            ? '≈\$${double.tryParse(selectedTicker.lastPrice)?.toStringAsFixed(4) ?? selectedTicker.lastPrice}'
+            : '≈\$--';
         final percentage =
             '${selectedTicker.priceChangePercent.startsWith('-') ? '' : '+'}${selectedTicker.priceChangePercent}%';
+        final isFavorite =
+            favoriteProvider.isFavorite(selectedSymbol.toLowerCase());
 
         return Scaffold(
           backgroundColor: context.theme.scaffoldBackgroundColor,
@@ -179,16 +182,16 @@ class _TradeScreenState extends State<TradeScreen> {
             centerTitle: true,
             actions: [
               IconButton(
-                icon: Image.asset(
-                  AppPaths.favoritesIcon,
-                  width: 24,
-                  height: 24,
-                  color: context.theme.colorScheme.onSurface,
+                icon: Icon(
+                  Icons.star,
+                  color: isFavorite ? Colors.amber : Colors.grey,
+                  size: 28,
                 ),
                 onPressed: () {
                   context
                       .read<FavoriteProvider>()
-                      .toggleFavoriteToken(selectedSymbol);
+                      .toggleFavoriteToken(selectedSymbol.toLowerCase());
+                  setState(() {});
                 },
               ),
             ],

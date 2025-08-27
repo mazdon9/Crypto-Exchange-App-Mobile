@@ -17,7 +17,7 @@ class OrderBookWidget extends StatelessWidget {
   // Format for Amount column
   String formatAmount(String value) {
     final number = double.tryParse(value) ?? 0;
-    return number.toStringAsFixed(5);
+    return number.toStringAsFixed(4);
   }
 
   final String selectedOrderType;
