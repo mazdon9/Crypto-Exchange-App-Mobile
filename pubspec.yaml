@@ -50,12 +50,15 @@ dependencies:
   # Web view
   webview_flutter: ^4.10.0
 
+<<<<<<< HEAD
   #slidable
   flutter_slidable: ^4.0.0
 
   #intl
   intl: ^0.18.1
 
+=======
+>>>>>>> e29e88bf550d9e7e7e25e17e07db9e6c9e10def7
 dev_dependencies:
   flutter_test:
     sdk: flutter
