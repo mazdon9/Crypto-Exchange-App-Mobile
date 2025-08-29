@@ -300,7 +300,7 @@ class _TradeScreenState extends State<TradeScreen> {
                 });
               },
               onBuyTap: () {
-                // Implement buy functionality
+                // Implement buy functionality.
               },
             ),
           ),
